@@ -5,12 +5,14 @@ public abstract class MotionPictures {
     private String[] cast;
     private String genre;
     private String ageCategory;
+    private String image;
 
-    public MotionPictures(String name, String[] cast, String genre, String ageCategory) {
+    public MotionPictures(String name, String[] cast, String genre, String ageCategory, String image) {
         this.name = name;
         this.cast = cast;
         this.genre = genre;
         this.ageCategory = ageCategory;
+        this.image = image;
     }
 
     public MotionPictures(String name) {
@@ -25,6 +27,7 @@ public abstract class MotionPictures {
         this.cast = motionPictures.cast;
         this.genre = motionPictures.genre;
         this.ageCategory = motionPictures.ageCategory;
+        this.image = motionPictures.image;
     }
 
 
@@ -66,6 +69,14 @@ public abstract class MotionPictures {
             copy[i] = cast[i];
         }
         this.cast = copy;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public abstract String returnStringInfo();

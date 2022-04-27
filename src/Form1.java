@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,8 +11,8 @@ public class Form1 extends JFrame{
     private JButton searchButton;
     private JButton showAllButton;
     private JButton editButton;
-    private JTextArea textArea1;
     private JPanel Form1;
+    private JPanel gridPanel;
 
     public static ArrayList<Movie> movies = new ArrayList<>();
     public static int mCount = 0;
@@ -20,13 +21,14 @@ public class Form1 extends JFrame{
 
 
     public Form1() {
-        textArea1.setEditable(false);
+//        textArea1.setEditable(false);
+
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Add add = new Add();
                 add.setVisible(true);
-                textArea1.setText("");
+//                textArea1.setText("");
             }
         });
         editButton.addActionListener(new ActionListener() {
@@ -34,7 +36,7 @@ public class Form1 extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 Edit edit = new Edit();
                 edit.setVisible(true);
-                textArea1.setText("");
+//                textArea1.setText("");
             }
         });
         deleteButton.addActionListener(new ActionListener() {
@@ -42,7 +44,7 @@ public class Form1 extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 Delete delete = new Delete();
                 delete.setVisible(true);
-                textArea1.setText("");
+//                textArea1.setText("");
             }
         });
         searchButton.addActionListener(new ActionListener() {
@@ -50,16 +52,23 @@ public class Form1 extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 Search search = new Search();
                 search.setVisible(true);
-                textArea1.setText("");
+//                textArea1.setText("");
             }
         });
         showAllButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(Movie movie: movies)
-                    textArea1.append(movie.returnStringInfo());
+                gridPanel = new JPanel(new GridLayout(4, 5, 10, 10));
+
+                for(Movie movie: movies) {
+                    JLabel label = new JLabel(movie.returnStringInfo());
+                    gridPanel.add(label);
+                }
+//                    textArea1.append(movie.returnStringInfo());
+
             }
         });
+        gridPanel.setVisible(true);
     }
 
     public static void main(String[] args) {
@@ -69,6 +78,9 @@ public class Form1 extends JFrame{
 //        form1.setSize(600, 600);
         form1.setBounds(600, 200, 600, 600);
         form1.setVisible(true);
+
         form1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
     }
+
 }

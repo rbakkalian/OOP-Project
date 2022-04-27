@@ -5,8 +5,8 @@ public class Movie extends MotionPictures {
     private int length;
     private String director;
 
-    public Movie(String name, String[] cast, int year, String genres, String ageCategory) {
-        super(name, cast, genres, ageCategory);
+    public Movie(String name, String[] cast, int year, String genres, String ageCategory, String image) {
+        super(name, cast, genres, ageCategory, image);
         this.year = year;
     }
 
@@ -66,6 +66,6 @@ public class Movie extends MotionPictures {
                 "Release Date: " + year + "\n" +
                 "Genre: " + getGenre() + "\n" +
                 "Age Category: " + getAgeCategory() + "\n" +
-                "Cast: " + "\n" + Arrays.toString(getCast()) + "\n\n";
+                "Cast: " + "\n" + Arrays.toString(getCast()) + "\n" + getImage() + "\n\n";
     }
 }

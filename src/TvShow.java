@@ -5,7 +5,8 @@ public class TvShow extends MotionPictures{
     private int[] years;
     private int numberOfSeasons;
 
-    public TvShow(int[] years, int numberOfSeasons) {
+    public TvShow(int[] years, int numberOfSeasons, String name, String[] cast, String genres, String ageCategory, String image) {
+        super(name, cast, genres, ageCategory, image);
         this.years = years;
         this.numberOfSeasons = numberOfSeasons;
     }
