@@ -1,0 +1,6 @@
+package enums;
+
+public enum Genres {
+    ACTION, COMEDY, DOCUMENTARY, DRAMA, FANTASY,
+    HORROR, MUSICAL, ROMANCE, THRILLER
+}

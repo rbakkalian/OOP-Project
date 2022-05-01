@@ -1,3 +1,5 @@
+import enums.Genres;
+
 import java.util.Arrays;
 
 public class Movie extends MotionPictures {
@@ -5,7 +7,7 @@ public class Movie extends MotionPictures {
     private int length;
     private String director;
 
-    public Movie(String name, String[] cast, int year, String genres, String ageCategory, String image) {
+    public Movie(String name, String[] cast, int year, Genres genres, String ageCategory, String image) {
         super(name, cast, genres, ageCategory, image);
         this.year = year;
     }

@@ -1,3 +1,5 @@
+import enums.Genres;
+
 import javax.swing.*;
 import java.util.Arrays;
 
@@ -5,7 +7,7 @@ public class TvShow extends MotionPictures{
     private int[] years;
     private int numberOfSeasons;
 
-    public TvShow(int[] years, int numberOfSeasons, String name, String[] cast, String genres, String ageCategory, String image) {
+    public TvShow(int[] years, int numberOfSeasons, String name, String[] cast, Genres genres, String ageCategory, String image) {
         super(name, cast, genres, ageCategory, image);
         this.years = years;
         this.numberOfSeasons = numberOfSeasons;

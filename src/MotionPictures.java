@@ -1,13 +1,15 @@
+import enums.Genres;
+
 import javax.swing.*;
 
 public abstract class MotionPictures {
     private String name;
     private String[] cast;
-    private String genre;
+    private Genres genre;
     private String ageCategory;
     private String image;
 
-    public MotionPictures(String name, String[] cast, String genre, String ageCategory, String image) {
+    public MotionPictures(String name, String[] cast, Genres genre, String ageCategory, String image) {
         this.name = name;
         this.cast = cast;
         this.genre = genre;
@@ -31,11 +33,11 @@ public abstract class MotionPictures {
     }
 
 
-    public String getGenre() {
+    public Genres getGenre() {
         return this.genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genres genre) {
         this.genre = genre;
     }
 

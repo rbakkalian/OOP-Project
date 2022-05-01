@@ -1,3 +1,5 @@
+import enums.Genres;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -37,7 +39,7 @@ public class Add extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = textField1.getText();
-                String genre = textField2.getText();
+                Genres genre = Genres.valueOf(textField2.getText());
                 int year = Integer.parseInt(textField3.getText());
                 String ageCategory = textField5.getText();
                 String image = textField6.getText();
