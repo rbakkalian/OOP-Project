@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Search extends JFrame {
     private JTextField textField1;
@@ -36,7 +40,7 @@ public class Search extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String x = textField1.getText();
-                int index;
+                /*int index;
                 for (Movie movie : Form1.movies) {
                     if (movie.getName().equals(x)) {
                         index = Form1.movies.indexOf(movie);
@@ -45,11 +49,32 @@ public class Search extends JFrame {
                         found = true;
                         break;
                     }
+                }*/
+                String line = "" ;
+                String delimiter = ",";
+
+                BufferedReader br;
+                try {
+                    br = new BufferedReader(new FileReader("dataBase.csv"));
+                    while ((line = br.readLine()) != null) {
+                        if (line.startsWith(x)) {
+
+                            String[] filmData = line.split(delimiter);    // use comma as separator
+                            String info  = "Name: " + filmData[0] + "\n" +
+                                    "Genre: " + filmData[1] + "\n" +
+                                    "Release Date: " + filmData[2] + "\n" +
+                                    "Cast: " + filmData[3] + "\n" +
+                                    "Age: " + filmData[4] + "\n" ;
+
+                            textArea1.setText(info);
+                        }
+
+                    }
+                    br.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
 
-                if (!found){
-                    JOptionPane.showMessageDialog(Search, "Movie not found!");
-                }
             }
         });
         textField1.addActionListener(new ActionListener() {

@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.io.File;
+import java.io.*;
 
 public class Add extends JFrame{
     private JTextField textField1;
@@ -49,6 +49,53 @@ public class Add extends JFrame{
                 Form1.movies.add(new Movie(name, cast, year, genre, ageCategory, image));
                 JOptionPane.showMessageDialog(Add, "Movie " + name + " added successfully!" + Form1.mCount);
                 Form1.mCount++;
+
+                PrintWriter pw = null;
+
+                try{
+                    pw = new PrintWriter(new FileWriter("dataBase.csv",true));
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                StringBuilder builder  = new StringBuilder();
+                builder.append(name+",");
+                builder.append(genre+",");
+                builder.append(year+",");
+                builder.append(s1+",");
+                builder.append(ageCategory);
+                builder.append('\n');
+                pw.write(builder.toString());
+                pw.close();
+                System.out.println("done!");
+
+
+
+
+                /*FileWriter writer = null;
+                try {
+                    writer = new FileWriter("dataBase.csv",true);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                for (int j = 0; j < 5; j++) {
+                    try {
+                        writer.append(String.valueOf(data[j]));
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    try {
+                        writer.append("\n");
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                try {
+                    writer.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }*/
 
                 textField1.setText("");
                 textField2.setText("");
