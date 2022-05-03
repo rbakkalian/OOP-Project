@@ -46,9 +46,7 @@ public class Add extends JFrame{
                 String s1 = textField4.getText();
                 String[] cast = s1.split(",");
 
-                Form1.movies.add(new Movie(name, cast, year, genre, ageCategory, image));
-                JOptionPane.showMessageDialog(Add, "Movie " + name + " added successfully!" + Form1.mCount);
-                Form1.mCount++;
+
 
                 PrintWriter pw = null;
 
@@ -68,9 +66,7 @@ public class Add extends JFrame{
                 builder.append('\n');
                 pw.write(builder.toString());
                 pw.close();
-                System.out.println("done!");
-
-
+                JOptionPane.showMessageDialog(Add, "Movie " + name + " added successfully!");
 
 
                 /*FileWriter writer = null;

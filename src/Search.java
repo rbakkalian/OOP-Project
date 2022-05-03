@@ -40,6 +40,7 @@ public class Search extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String x = textField1.getText();
+                String info = "";
                 /*int index;
                 for (Movie movie : Form1.movies) {
                     if (movie.getName().equals(x)) {
@@ -58,16 +59,29 @@ public class Search extends JFrame {
                     br = new BufferedReader(new FileReader("dataBase.csv"));
                     while ((line = br.readLine()) != null) {
                         if (line.startsWith(x)) {
+                                if (x.length() == 0) {
+                                    String noTextInfo = "Please enter a keyword for a lookup";
+                                    textArea1.setText(noTextInfo);
+                                } else {
+                                    String[] filmData = line.split(delimiter);    // use comma as separator
+                                    info  = "Name: " + filmData[0] + "\n" +
+                                            "Genre: " + filmData[1] + "\n" +
+                                            "Release Date: " + filmData[2] + "\n" +
+                                            "Cast: " + filmData[3] + "\n" +
+                                            "Age: " + filmData[4] + "\n" ;
+                                    textArea1.setText(info);
+                                    break;
+                                }
 
-                            String[] filmData = line.split(delimiter);    // use comma as separator
-                            String info  = "Name: " + filmData[0] + "\n" +
-                                    "Genre: " + filmData[1] + "\n" +
-                                    "Release Date: " + filmData[2] + "\n" +
-                                    "Cast: " + filmData[3] + "\n" +
-                                    "Age: " + filmData[4] + "\n" ;
-
-                            textArea1.setText(info);
                         }
+                        else {
+                            String noMoviesInfo = "No movies were found";
+                            textArea1.setText(noMoviesInfo);
+
+                        }
+
+
+
 
                     }
                     br.close();
