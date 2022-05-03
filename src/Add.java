@@ -68,31 +68,6 @@ public class Add extends JFrame{
                 pw.close();
                 JOptionPane.showMessageDialog(Add, "Movie " + name + " added successfully!");
 
-
-                /*FileWriter writer = null;
-                try {
-                    writer = new FileWriter("dataBase.csv",true);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                for (int j = 0; j < 5; j++) {
-                    try {
-                        writer.append(String.valueOf(data[j]));
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    try {
-                        writer.append("\n");
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-                try {
-                    writer.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }*/
-
                 textField1.setText("");
                 textField2.setText("");
                 textField3.setText("");

@@ -41,16 +41,6 @@ public class Search extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String x = textField1.getText();
                 String info = "";
-                /*int index;
-                for (Movie movie : Form1.movies) {
-                    if (movie.getName().equals(x)) {
-                        index = Form1.movies.indexOf(movie);
-                        m = Form1.movies.get(index);
-                        textArea1.setText(m.returnStringInfo());
-                        found = true;
-                        break;
-                    }
-                }*/
                 String line = "" ;
                 String delimiter = ",";
 
@@ -72,16 +62,10 @@ public class Search extends JFrame {
                                     textArea1.setText(info);
                                     break;
                                 }
-
-                        }
-                        else {
+                        } else {
                             String noMoviesInfo = "No movies were found";
                             textArea1.setText(noMoviesInfo);
-
                         }
-
-
-
 
                     }
                     br.close();
