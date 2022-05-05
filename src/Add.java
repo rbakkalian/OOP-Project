@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.*;
+import java.time.Instant;
+import java.util.Date;
 
 public class Add extends JFrame{
     private JTextField textField1;
@@ -42,11 +44,9 @@ public class Add extends JFrame{
                 String ageCategory = textField5.getText();
                 String image = textField6.getText();
                 image = image.replace("\\", "\\\\");
-
+                long now = Instant.now().toEpochMilli();
                 String s1 = textField4.getText();
                 String[] cast = s1.split(",");
-
-
 
                 PrintWriter pw = null;
 
@@ -62,7 +62,8 @@ public class Add extends JFrame{
                 builder.append(genre+",");
                 builder.append(year+",");
                 builder.append(s1+",");
-                builder.append(ageCategory);
+                builder.append(ageCategory + ",");
+                builder.append(now);
                 builder.append('\n');
                 pw.write(builder.toString());
                 pw.close();

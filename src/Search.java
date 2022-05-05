@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Date;
 
 public class Search extends JFrame {
     private JTextField textField1;
@@ -39,21 +40,36 @@ public class Search extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                boolean isDeleted = false;
                 String x = textField1.getText();
                 String info = "";
-                String line = "" ;
+                String lineFromDb = "" ;
+                String lineFromRemovedDb = "" ;
+                long deletionDate = 0;
+                long additionDate = 0;
                 String delimiter = ",";
 
-                BufferedReader br;
+                BufferedReader dbBufferedReader;
+                BufferedReader deletedDbBufferedReader;
                 try {
-                    br = new BufferedReader(new FileReader("dataBase.csv"));
-                    while ((line = br.readLine()) != null) {
-                        if (line.startsWith(x)) {
+                    dbBufferedReader = new BufferedReader(new FileReader("dataBase.csv"));
+                    deletedDbBufferedReader = new BufferedReader(new FileReader("dataBaseDeleted.csv"));
+                    while ((lineFromRemovedDb = deletedDbBufferedReader.readLine()) != null) {
+                        String[] filmDataDeleted = lineFromRemovedDb.split(delimiter);
+                        if (x.equals(filmDataDeleted[0])) {
+                            deletionDate = Long.parseLong(filmDataDeleted[6]);
+                            isDeleted = true;
+                        }
+                    }
+                    while ((lineFromDb = dbBufferedReader.readLine()) != null) {
+                        String[] filmData = lineFromDb.split(delimiter);
+                        additionDate = Long.parseLong(filmData[5]);
+                        if (x.equals(filmData[0]) && (!isDeleted || additionDate > deletionDate) ){
                                 if (x.length() == 0) {
                                     String noTextInfo = "Please enter a keyword for a lookup";
                                     textArea1.setText(noTextInfo);
                                 } else {
-                                    String[] filmData = line.split(delimiter);    // use comma as separator
+                                       // use comma as separator
                                     info  = "Name: " + filmData[0] + "\n" +
                                             "Genre: " + filmData[1] + "\n" +
                                             "Release Date: " + filmData[2] + "\n" +
@@ -68,7 +84,8 @@ public class Search extends JFrame {
                         }
 
                     }
-                    br.close();
+                    dbBufferedReader.close();
+                    deletedDbBufferedReader.close();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }

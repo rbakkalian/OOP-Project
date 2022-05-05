@@ -1,9 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.Normalizer;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.io.*;
+import java.time.Instant;
 
 public class Delete extends JFrame {
     private JTextField textField1;
@@ -28,20 +27,46 @@ public class Delete extends JFrame {
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String response = "";
                 String x = textField1.getText();
+                String line = "";
+                String delimiter = ",";
+                BufferedReader bufferedReader;
+                PrintWriter printWriter;
+                long now = Instant.now().toEpochMilli();
 
-                //To avoid the throw of ConcurrentModificationExceptionError we used iterators to keep the count of the list balanced
-                for (Iterator<Movie> itr = Form1.movies.iterator(); itr.hasNext(); ) {
-                    m = itr.next();
-                    if (m.getName().equals(x)) {
-                        JOptionPane.showMessageDialog(Delete, "Movie " + x + " deleted successfully!");
-                        itr.remove();
+                try {
+                    bufferedReader = new BufferedReader(new FileReader("dataBase.csv"));
+                    while ((line = bufferedReader.readLine()) != null) {
+                        if (line.startsWith(x)) {
+                            String[] filmData = line.split(delimiter);
+                            if (x.length() == 0) {
+                                response = "please enter text";
+                                break;
+                            } else if (x.equals(filmData[0])) {
+                                printWriter = new PrintWriter(new BufferedWriter(new FileWriter("dataBaseDeleted.csv",true)));
+                                StringBuilder builder  = new StringBuilder();
+                                builder.append(filmData[0]+",");
+                                builder.append(filmData[1]+",");
+                                builder.append(filmData[2]+",");
+                                builder.append(filmData[3]+",");
+                                builder.append(filmData[4]+",");
+                                builder.append("deleted" + ",");
+                                builder.append(now);
+                                builder.append('\n');
+                                printWriter.write(builder.toString());
+                                printWriter.close();
+                                response = "movie deleted";
+                                break;
+                            }
+                        } else {
+                            response = "not found";
+                        }
                     }
-                    else {
-                        JOptionPane.showMessageDialog(Delete, "Movie not found!");
-                        break;
-                    }
-                    textField1.setText("");
+                    JOptionPane.showMessageDialog(Delete, response);
+                    bufferedReader.close();
+                }catch (IOException ex) {
+                    ex.printStackTrace();
                 }
             }
         });
