@@ -45,8 +45,8 @@ public class Search extends JFrame {
                 String info = "";
                 String lineFromDb = "" ;
                 String lineFromRemovedDb = "" ;
-                long deletionDate = 0;
-                long additionDate = 0;
+                long deletionDate = Long.MIN_VALUE;
+                long additionDate;
                 String delimiter = ",";
 
                 BufferedReader dbBufferedReader;
@@ -63,8 +63,7 @@ public class Search extends JFrame {
                     }
                     while ((lineFromDb = dbBufferedReader.readLine()) != null) {
                         String[] filmData = lineFromDb.split(delimiter);
-                        additionDate = Long.parseLong(filmData[5]);
-                        if (x.equals(filmData[0]) && (!isDeleted || additionDate > deletionDate) ){
+                        if (x.equals(filmData[0]) && (!isDeleted ||(isDeleted && Long.parseLong(filmData[5]) > deletionDate) ) ){
                                 if (x.length() == 0) {
                                     String noTextInfo = "Please enter a keyword for a lookup";
                                     textArea1.setText(noTextInfo);
