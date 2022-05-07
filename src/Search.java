@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Date;
 
 public class Search extends JFrame {
     private JTextField textField1;
@@ -39,38 +40,51 @@ public class Search extends JFrame {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                boolean isDeleted = false;
                 String x = textField1.getText();
-                /*int index;
-                for (Movie movie : Form1.movies) {
-                    if (movie.getName().equals(x)) {
-                        index = Form1.movies.indexOf(movie);
-                        m = Form1.movies.get(index);
-                        textArea1.setText(m.returnStringInfo());
-                        found = true;
-                        break;
-                    }
-                }*/
-                String line = "" ;
+                String info = "";
+                String lineFromDb = "" ;
+                String lineFromRemovedDb = "" ;
+                long deletionDate = Long.MIN_VALUE;
+                long additionDate;
                 String delimiter = ",";
 
-                BufferedReader br;
+                BufferedReader dbBufferedReader;
+                BufferedReader deletedDbBufferedReader;
                 try {
-                    br = new BufferedReader(new FileReader("dataBase.csv"));
-                    while ((line = br.readLine()) != null) {
-                        if (line.startsWith(x)) {
-
-                            String[] filmData = line.split(delimiter);    // use comma as separator
-                            String info  = "Name: " + filmData[0] + "\n" +
-                                    "Genre: " + filmData[1] + "\n" +
-                                    "Release Date: " + filmData[2] + "\n" +
-                                    "Cast: " + filmData[3] + "\n" +
-                                    "Age: " + filmData[4] + "\n" ;
-
-                            textArea1.setText(info);
+                    dbBufferedReader = new BufferedReader(new FileReader("dataBase.csv"));
+                    deletedDbBufferedReader = new BufferedReader(new FileReader("dataBaseDeleted.csv"));
+                    while ((lineFromRemovedDb = deletedDbBufferedReader.readLine()) != null) {
+                        String[] filmDataDeleted = lineFromRemovedDb.split(delimiter);
+                        if (x.equals(filmDataDeleted[0])) {
+                            deletionDate = Long.parseLong(filmDataDeleted[6]);
+                            isDeleted = true;
+                        }
+                    }
+                    while ((lineFromDb = dbBufferedReader.readLine()) != null) {
+                        String[] filmData = lineFromDb.split(delimiter);
+                        if (x.equals(filmData[0]) && (!isDeleted ||(isDeleted && Long.parseLong(filmData[5]) > deletionDate) ) ){
+                                if (x.length() == 0) {
+                                    String noTextInfo = "Please enter a keyword for a lookup";
+                                    textArea1.setText(noTextInfo);
+                                } else {
+                                       // use comma as separator
+                                    info  = "Name: " + filmData[0] + "\n" +
+                                            "Genre: " + filmData[1] + "\n" +
+                                            "Release Date: " + filmData[2] + "\n" +
+                                            "Cast: " + filmData[3] + "\n" +
+                                            "Age: " + filmData[4] + "\n" ;
+                                    textArea1.setText(info);
+                                    break;
+                                }
+                        } else {
+                            String noMoviesInfo = "No movies were found";
+                            textArea1.setText(noMoviesInfo);
                         }
 
                     }
-                    br.close();
+                    dbBufferedReader.close();
+                    deletedDbBufferedReader.close();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }

@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.*;
+import java.time.Instant;
+import java.util.Date;
 
 public class Add extends JFrame{
     private JTextField textField1;
@@ -42,13 +44,9 @@ public class Add extends JFrame{
                 String ageCategory = textField5.getText();
                 String image = textField6.getText();
                 image = image.replace("\\", "\\\\");
-
+                long now = Instant.now().toEpochMilli();
                 String s1 = textField4.getText();
                 String[] cast = s1.split(",");
-
-                Form1.movies.add(new Movie(name, cast, year, genre, ageCategory, image));
-                JOptionPane.showMessageDialog(Add, "Movie " + name + " added successfully!" + Form1.mCount);
-                Form1.mCount++;
 
                 PrintWriter pw = null;
 
@@ -64,38 +62,12 @@ public class Add extends JFrame{
                 builder.append(genre+",");
                 builder.append(year+",");
                 builder.append(s1+",");
-                builder.append(ageCategory);
+                builder.append(ageCategory + ",");
+                builder.append(now);
                 builder.append('\n');
                 pw.write(builder.toString());
                 pw.close();
-                System.out.println("done!");
-
-
-
-
-                /*FileWriter writer = null;
-                try {
-                    writer = new FileWriter("dataBase.csv",true);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                for (int j = 0; j < 5; j++) {
-                    try {
-                        writer.append(String.valueOf(data[j]));
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    try {
-                        writer.append("\n");
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-                try {
-                    writer.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }*/
+                JOptionPane.showMessageDialog(Add, "Movie " + name + " added successfully!");
 
                 textField1.setText("");
                 textField2.setText("");
