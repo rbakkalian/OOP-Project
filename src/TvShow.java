@@ -5,8 +5,8 @@ public class TvShow extends MotionPictures{
     private int[] years;
     private int numberOfSeasons;
 
-    public TvShow(int[] years, int numberOfSeasons, String name, String[] cast, String genres, String ageCategory, String image) {
-        super(name, cast, genres, ageCategory, image);
+    public TvShow(int[] years, int numberOfSeasons, String name, String[] cast, Genre genres, String image) {
+        super(name, cast, genres, image);
         this.years = years;
         this.numberOfSeasons = numberOfSeasons;
     }
@@ -42,7 +42,6 @@ public class TvShow extends MotionPictures{
                 "Number of Seasons: " + getNumberOfSeasons() + "\n" +
                 "Years Aired: " + Arrays.toString(years) + "\n" +
                 "Genre: " + getGenre() + "\n" +
-                "Age Category: " + getAgeCategory() + "\n" +
                 "Cast: " + "\n" + Arrays.toString(getCast()) + "\n";
     }
 }

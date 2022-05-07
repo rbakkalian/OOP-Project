@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -20,6 +21,7 @@ public class Search extends JFrame {
     public Search() {
         setContentPane(Search);
         setTitle("Search Movie");
+        Search.setBorder(new EmptyBorder(10, 10, 10, 10));
         setBounds(600, 200, 400, 400);
         setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -29,13 +31,9 @@ public class Search extends JFrame {
                 dispose();
             }
         });
-        editButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Edit edit = new Edit();
-                edit.setVisible(true);
-            }
-        });
+
+        Icon icon2 = new ImageIcon("C:\\Users\\Lenovo\\IdeaProjects\\test\\src\\assets\\search-icon-png-9978.png");
+        searchButton.setIcon(icon2);
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -64,7 +62,7 @@ public class Search extends JFrame {
                                     "Genre: " + filmData[1] + "\n" +
                                     "Release Date: " + filmData[2] + "\n" +
                                     "Cast: " + filmData[3] + "\n" +
-                                    "Age: " + filmData[4] + "\n" ;
+                                    "Director: " + filmData[4] + "\n" ;
 
                             textArea1.setText(info);
                         }

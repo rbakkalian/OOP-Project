@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.Normalizer;
@@ -16,6 +17,7 @@ public class Delete extends JFrame {
     public Delete() {
         setContentPane(Delete);
         setTitle("Delete Movie");
+        Delete.setBorder(new EmptyBorder(10, 10, 10, 10));
         setBounds(600, 200, 400, 400);
         setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -31,19 +33,23 @@ public class Delete extends JFrame {
                 String x = textField1.getText();
 
                 //To avoid the throw of ConcurrentModificationExceptionError we used iterators to keep the count of the list balanced
-                for (Iterator<Movie> itr = Form1.movies.iterator(); itr.hasNext(); ) {
-                    m = itr.next();
-                    if (m.getName().equals(x)) {
-                        JOptionPane.showMessageDialog(Delete, "Movie " + x + " deleted successfully!");
-                        itr.remove();
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(Delete, "Movie not found!");
-                        break;
-                    }
-                    textField1.setText("");
-                }
+                delete(x);
             }
         });
+    }
+
+    public void delete(String x) {
+        for (Iterator<Movie> itr = Form1.movies.iterator(); itr.hasNext(); ) {
+            m = itr.next();
+            if (m.getName().equals(x)) {
+                JOptionPane.showMessageDialog(Delete, "Movie " + x + " deleted successfully!");
+                itr.remove();
+            }
+            else {
+                JOptionPane.showMessageDialog(Delete, "Movie not found!");
+                break;
+            }
+            textField1.setText("");
+        }
     }
 }
