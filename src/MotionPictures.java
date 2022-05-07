@@ -3,13 +3,15 @@ import javax.swing.*;
 public abstract class MotionPictures {
     private String name;
     private String[] cast;
-    private Genre genre;
+    private String genre;
+    private String ageCategory;
     private String image;
 
-    public MotionPictures(String name, String[] cast, Genre genre, String image) {
+    public MotionPictures(String name, String[] cast, String genre, String ageCategory, String image) {
         this.name = name;
         this.cast = cast;
         this.genre = genre;
+        this.ageCategory = ageCategory;
         this.image = image;
     }
 
@@ -24,15 +26,16 @@ public abstract class MotionPictures {
         this.name = motionPictures.name;
         this.cast = motionPictures.cast;
         this.genre = motionPictures.genre;
+        this.ageCategory = motionPictures.ageCategory;
         this.image = motionPictures.image;
     }
 
 
-    public Genre getGenre() {
+    public String getGenre() {
         return this.genre;
     }
 
-    public void setGenre(Genre genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
@@ -42,6 +45,14 @@ public abstract class MotionPictures {
 
     public String getName() {
         return this.name;
+    }
+
+    public String getAgeCategory() {
+        return ageCategory;
+    }
+
+    public void setAgeCategory(String ageCategory) {
+        this.ageCategory = ageCategory;
     }
 
     public String[] getCast() {
@@ -69,9 +80,5 @@ public abstract class MotionPictures {
     }
 
     public abstract String returnStringInfo();
-
-    public enum Genre{
-        ACTION, COMEDY, DRAMA, THRILLER, ROMANCE, MYSTERY
-    }
 
 }

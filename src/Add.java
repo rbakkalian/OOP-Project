@@ -1,15 +1,14 @@
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.*;
-import java.util.Arrays;
 
 public class Add extends JFrame{
     private JTextField textField1;
+    private JTextField textField2;
     private JTextField textField3;
     private JTextField textField4;
     private JButton addButton;
@@ -19,28 +18,15 @@ public class Add extends JFrame{
     private JTextField textField6;
     private JButton attachButton;
     private JLabel image_label;
-    private JComboBox<MotionPictures.Genre> comboBox1;
-    private JRadioButton tvShowRadioButton;
-    private JRadioButton movieRadioButton;
 
     public Add() {
         setContentPane(Add);
         setTitle("Add Movie");
-        Add.setBorder(new EmptyBorder(10, 10, 10, 10));
         image_label.setBorder(new LineBorder(Color.BLUE));
         image_label.setPreferredSize(new Dimension(200, 200));
         setBounds(750, 200, 400, 600);
         setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        comboBox1.addItem(null);
-        comboBox1.addItem(MotionPictures.Genre.COMEDY);
-        comboBox1.addItem(MotionPictures.Genre.DRAMA);
-        comboBox1.addItem(MotionPictures.Genre.THRILLER);
-        comboBox1.addItem(MotionPictures.Genre.ROMANCE);
-        comboBox1.addItem(MotionPictures.Genre.MYSTERY);
-
-
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,17 +37,42 @@ public class Add extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = textField1.getText();
-                MotionPictures.Genre genre = (MotionPictures.Genre) comboBox1.getSelectedItem();
+                String genre = textField2.getText();
                 int year = Integer.parseInt(textField3.getText());
-                String director = textField5.getText();
+                String ageCategory = textField5.getText();
                 String image = textField6.getText();
                 image = image.replace("\\", "\\\\");
 
-                String s1 = textField4.getText();//cast
+                String s1 = textField4.getText();
                 String[] cast = s1.split(",");
 
-                add(name, cast, year, genre, director, image);
-                JOptionPane.showMessageDialog(Add, "Movie " + name + " added successfully!");
+                Form1.movies.add(new Movie(name, cast, year, genre, ageCategory, image));
+                JOptionPane.showMessageDialog(Add, "Movie " + name + " added successfully!" + Form1.mCount);
+                Form1.mCount++;
+
+                PrintWriter pw = null;
+
+                try{
+                    pw = new PrintWriter(new FileWriter("dataBase.csv",true));
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                StringBuilder builder  = new StringBuilder();
+                builder.append(name+",");
+                builder.append(genre+",");
+                builder.append(year+",");
+                builder.append(s1+",");
+                builder.append(ageCategory);
+                builder.append('\n');
+                pw.write(builder.toString());
+                pw.close();
+                System.out.println("done!");
+
+
+
+
                 /*FileWriter writer = null;
                 try {
                     writer = new FileWriter("dataBase.csv",true);
@@ -87,6 +98,7 @@ public class Add extends JFrame{
                 }*/
 
                 textField1.setText("");
+                textField2.setText("");
                 textField3.setText("");
                 textField4.setText("");
                 textField5.setText("");
@@ -107,34 +119,6 @@ public class Add extends JFrame{
                 image_label.setIcon(icon);
             }
         });
-    }
-
-    public static void add(String name, String[] cast, int year, MotionPictures.Genre genre, String director, String image){
-        Form1.movies.add(new Movie(name, cast, year, genre, director, image));
-        Form1.mCount++;
-
-        String s1 = Arrays.toString(cast);
-
-        PrintWriter pw = null;
-
-        try{
-            pw = new PrintWriter(new FileWriter("dataBase.csv",true));
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        StringBuilder builder  = new StringBuilder();
-        builder.append(name+",");
-        builder.append(genre+",");
-        builder.append(year+",");
-        builder.append(s1+",");
-        builder.append(director);
-        builder.append('\n');
-        pw.write(builder.toString());
-        pw.close();
-        System.out.println("done!");
-
     }
 
     public void close(){
