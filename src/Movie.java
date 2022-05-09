@@ -2,19 +2,18 @@ import java.util.Arrays;
 
 public class Movie extends MotionPictures {
     private int year;
-    private int length;
     private String director;
 
-    public Movie(String name, String[] cast, int year, String genres, String ageCategory, String image) {
-        super(name, cast, genres, ageCategory, image);
+    public Movie(String name, String[] cast, int year, Genre genres, String director, String image) {
+        super(name, cast, genres, image);
         this.year = year;
+        this.director = director;
     }
 
     public Movie(Movie other) {
         super();
         this.year = other.year;
         this.director = other.director;
-        this.length = other.length;
     }
 
     public Movie(String name){
@@ -28,20 +27,12 @@ public class Movie extends MotionPictures {
         return this.getName() + " (" + this.year + ")";
     }
 
-    public void setLength(int length) {
-        this.length = length;
-    }
-
     public void setYear(int year) {
         this.year = year;
     }
 
     public int getYear() {
         return year;
-    }
-
-    public int getLength() {
-        return length;
     }
 
     public String getDirector() {
@@ -65,7 +56,7 @@ public class Movie extends MotionPictures {
         return "Name: " + getName() + "\n" +
                 "Release Date: " + year + "\n" +
                 "Genre: " + getGenre() + "\n" +
-                "Age Category: " + getAgeCategory() + "\n" +
+                "Director: " + director + "\n" +
                 "Cast: " + "\n" + Arrays.toString(getCast()) + "\n" + getImage() + "\n\n";
     }
 }

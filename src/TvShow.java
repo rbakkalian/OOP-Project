@@ -2,11 +2,11 @@ import javax.swing.*;
 import java.util.Arrays;
 
 public class TvShow extends MotionPictures{
-    private int[] years;
+    private String years;
     private int numberOfSeasons;
 
-    public TvShow(int[] years, int numberOfSeasons, String name, String[] cast, String genres, String ageCategory, String image) {
-        super(name, cast, genres, ageCategory, image);
+    public TvShow(String name, String[] cast, String years, Genre genres, int numberOfSeasons, String image) {
+        super(name, cast, genres, image);
         this.years = years;
         this.numberOfSeasons = numberOfSeasons;
     }
@@ -19,11 +19,11 @@ public class TvShow extends MotionPictures{
 
     public TvShow(){}
 
-    public int[] getYears() {
+    public String getYears() {
         return years;
     }
 
-    public void setYears(int[] years) {
+    public void setYears(String years) {
         this.years = years;
     }
 
@@ -40,9 +40,8 @@ public class TvShow extends MotionPictures{
     public String returnStringInfo() {
         return "Name: " + getName() + "\n" +
                 "Number of Seasons: " + getNumberOfSeasons() + "\n" +
-                "Years Aired: " + Arrays.toString(years) + "\n" +
+                "Years Aired: " + years + "\n" +
                 "Genre: " + getGenre() + "\n" +
-                "Age Category: " + getAgeCategory() + "\n" +
                 "Cast: " + "\n" + Arrays.toString(getCast()) + "\n";
     }
 }
